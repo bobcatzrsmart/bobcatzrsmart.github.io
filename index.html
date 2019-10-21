@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Full Screen Leaflet Map</title>
+    <title>BCRS</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
     integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin="">
     </script>
-    <link rel="stylesheet" href="css/style.css"
-
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+    <script src="javascript/javascript.js"></script>
 </head>
 <body>
-    <div id="map"></div>
-<script src="javascript/javascript.js"></script>
+  <div id="distance-calc">
+    <button class="button default" onclick="calculateDistance(pointA, pointB)">Calculate Distance</button>
+    <p>
+      <div id="distance-calc-data">
+      </div>
+    </p>
+  </div>
+  <div id="midpoint-calc">
+    <button class="button default" onclick="calculateMidPoint(point1, point2)">Midpoint</button>
+    <p>
+      <div id="midpoint-calc-data">
+      </div>
+    </p>
+  </div>
+  <div id="map"><script>webMap();</script></div>
+  <div id="about-us" class="dropdown">
+    <div class="dropdown-content">
+      <a href="https://auzinthewild.github.io" target="_blank">Austin Bodin</a>
+      <a href="https://victorgalvan.github.io" target="_blank">Victor Galvan</a>
+    </div>
+  </div>
 </body>
 </html>
