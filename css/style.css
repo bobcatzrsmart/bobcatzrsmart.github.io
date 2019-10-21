@@ -2,7 +2,145 @@ body {
     padding: 0;
     margin: 0;
 }
-html, body, #map {
+html, body {
     height: 100%;
     width: 100%;
+    font-family: "Segoe UI";
+}
+
+#map {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  top: 0;
+  left: 0;
+}
+
+#about-us {
+  transition-duration: .5s;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  padding: .5em;
+  background-image: url('../images/about-icon-hover.png');
+  background-repeat: no-repeat;
+  width:80px;
+  height: 55px;
+}
+
+#about-us:hover {
+  background-image: url('../images/about-icon.png');
+  transition-duration: .5s;
+}
+
+#distance-calc {
+  position: relative;
+  border: 2px solid black;
+  z-index: 1;
+  width: 14em;
+  height: 8em;
+  left: 60%;
+  top: 10em;
+  margin-top: 2em;
+  margin-left: 1em;
+  background: white;
+  padding: .5em;
+  text-align: center;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  visibility: hidden;
+  opacity: 0;
+  -prefixes-transition-property: opacity, visibility;
+  -prefixes-transition-duration: .5s, 0s;
+  -prefixes-transition-delay: 0s, .5s;
+  position: absolute;
+  background-color: #f1f1f1;
+  top: 57px;
+  right: 5px;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 2;
+  transition-duration: .5s;
+}
+
+.dropdown-content a {
+  color: #585858;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition-duration: .5s;
+  font-family: "Segoe UI";
+  font-weight: bold;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.dropdown:hover {
+  cursor: pointer;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  visibility: visible;
+  opacity: 1;
+  -prefixes-transition-delay: 0s, 0s;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.button {
+  border: 2px solid black;
+  background: #4479BA;
+	color: #FFF;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.default {
+  color: #FFF;
+  font-weight: bold;
+  -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: solid 1px #20538D;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.default:hover {
+  background: #356094;
+	border: solid 1px #2A4E77;
+	text-decoration: none;
+}
+
+.button:focus {
+  outline: 0;
+}
+
+.default:active {
+  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+	background: #2E5481;
+	border: solid 1px #203E5F;
 }
