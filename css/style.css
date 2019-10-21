@@ -50,14 +50,14 @@ html, body {
   text-align: center;
 }
 
-#midpoint {
+#midpoint-calc {
   position: relative;
   border: 2px solid red;
   z-index: 1;
   width: 14em;
-  height: 8em;
+  height: 10em;
   left: 60%;
-  top: 10em;
+  top: 20em;
   margin-top: 2em;
   margin-left: 1em;
   background: white;

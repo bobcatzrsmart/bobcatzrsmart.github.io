@@ -30,14 +30,11 @@ function calculateDistance(from, to) {
   (Math.round(distance * 100) / 100) + " miles.";
 }
 
-function calculateMidPoint(point1, point2) {
+function calculateMidPoint() {
   var point1 = turf.point([29.888199, -97.934505]);
   var point2 = turf.point([29.8883247, -97.944314]);
 
   var midpoint = turf.midpoint(point1, point2);
-  document.getElementById("midpoint-calc-data")
-
-  var addTo(map) = [point1, point2, midpoint];
-  midpoint.properties['marker-color'] = "#f00";
+  document.getElementById("midpoint-calc-data").innerHTML = "The midpoint of Sewell Park and Gumbys is " + midpoint['geometry']['coordinates'][0] + ' lat <br>' + midpoint['geometry']['coordinates'][1] + ' lon';
 
 }
