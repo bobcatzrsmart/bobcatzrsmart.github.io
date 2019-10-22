@@ -50,6 +50,21 @@ html, body {
   text-align: center;
 }
 
+#midpoint-calc {
+  position: relative;
+  border: 2px solid blue;
+  z-index: 1;
+  width: 14em;
+  height: 10em;
+  left: 60%;
+  top: 20em;
+  margin-top: 2em;
+  margin-left: 1em;
+  background: white;
+  padding: .5em;
+  text-align: center;
+}
+
 .dropdown {
   position: relative;
   display: inline-block;

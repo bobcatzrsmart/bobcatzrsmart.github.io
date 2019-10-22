@@ -1,5 +1,8 @@
 var pointA = [29.889395,-97.939, "Old Main"];
 var pointB = [29.882758,-97.9408, "Hays County Courthouse"];
+var pointC = [29.888199, -97.934505, "Sewell Park"];
+var pointD = [29.8883247, -97.944314, "Gumbys"];
+
 
 function webMap() {
   var map = L.map('map').setView([29.8884, -97.9384], 16);
@@ -12,6 +15,8 @@ function webMap() {
 
   markerA = L.marker([pointA[0], pointA[1]]).addTo(map);
   markerB = L.marker([pointB[0], pointB[1]]).addTo(map);
+  circleC = L.circle([pointC[0], pointC[1]]).addTo(map);
+  circleD = L.circle([pointD[0], pointD[1]]).addTo(map);
 
 }
 
@@ -23,4 +28,13 @@ function calculateDistance(from, to) {
   var distance = turf.distance (fromPt, toPt, options);
   document.getElementById("distance-calc-data").innerHTML = "The distance from " + from[2] + " to " + to[2] + " is " +
   (Math.round(distance * 100) / 100) + " miles.";
+}
+
+function calculateMidPoint() {
+  var point1 = turf.point([29.888199, -97.934505]);
+  var point2 = turf.point([29.8883247, -97.944314]);
+
+  var midpoint = turf.midpoint(point1, point2);
+  document.getElementById("midpoint-calc-data").innerHTML = "The midpoint of Sewell Park and Gumbys is " + midpoint['geometry']['coordinates'][0] + ' lat <br>' + midpoint['geometry']['coordinates'][1] + ' lon';
+
 }
