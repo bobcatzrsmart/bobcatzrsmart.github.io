@@ -1,161 +1,323 @@
+* {
+  box-sizing: border-box;
+}
 body {
-    padding: 0;
-    margin: 0;
+  line-height: 1.5;
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #fff;
+  background: #659DBD;
 }
-html, body {
-    height: 100%;
-    width: 100%;
-    font-family: "Segoe UI";
+a {
+  text-decoration: none;
+  color: inherit;
 }
-
-#map {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  z-index: 0;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.nav {
+  height: 9vh;
+  will-change: transform;
+  position: fixed;
   top: 0;
   left: 0;
-}
-
-#about-us {
-  transition-duration: .5s;
-  position: absolute;
+  width: 100%;
   z-index: 1;
-  top: 0;
-  right: 0;
-  padding: .5em;
-  background-image: url('../images/about-icon-hover.png');
-  background-repeat: no-repeat;
-  width:80px;
-  height: 55px;
+  background: #659DBD;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav--active {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.nav__list {
+  display: flex;
+  width: 50%;
+}
+.nav__list2 {
+  display: flex;
+  width: 100%;
 }
 
-#about-us:hover {
-  background-image: url('../images/about-icon.png');
-  transition-duration: .5s;
-}
-
-#distance-calc {
+.nav__item {
+  flex: 1;
   position: relative;
-  border: 2px solid black;
-  z-index: 1;
-  width: 14em;
-  height: 8em;
-  left: 60%;
-  top: 10em;
-  margin-top: 2em;
-  margin-left: 1em;
-  background: white;
-  padding: .5em;
-  text-align: center;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
 }
-
-#midpoint-calc {
-  position: relative;
-  border: 2px solid blue;
-  z-index: 1;
-  width: 14em;
-  height: 10em;
-  left: 60%;
-  top: 20em;
-  margin-top: 2em;
-  margin-left: 1em;
-  background: white;
-  padding: .5em;
-  text-align: center;
+.nav__item:hover {
+  opacity: 0.75;
 }
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  visibility: hidden;
-  opacity: 0;
-  -prefixes-transition-property: opacity, visibility;
-  -prefixes-transition-duration: .5s, 0s;
-  -prefixes-transition-delay: 0s, .5s;
-  position: absolute;
-  background-color: #f1f1f1;
-  top: 57px;
-  right: 5px;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 2;
-  transition-duration: .5s;
-}
-
-.dropdown-content a {
-  color: #585858;
-  padding: 12px 16px;
-  text-decoration: none;
+.nav__thumb {
   display: block;
-  transition-duration: .5s;
-  font-family: "Segoe UI";
-  font-weight: bold;
+  height: 9vh;
+  background: #dc143c;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav__thumb:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 70px;
+  text-transform: uppercase;
+  opacity: 0;
+}
+.nav__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0;
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-  background-color: #ddd;
+#navContainer {
+  display: flex;
+}
+
+#tagArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 9vh;
+  width: 50%;
+  margin: 0;
+}
+
+#tagContent {
+
+}
+
+@media (max-width: 850px) {
+  .nav__label {
+    font-size: 14px;
+  }
+}
+@media (max-width: 720px) {
+  .nav__label {
+    display: none;
+  }
+  .nav__thumb {
+    height: 60px;
+  }
+  .nav__thumb:before {
+    font-size: 24px;
+    opacity: 0.7;
+  }
+}
+.page {
+  height: 91vh;
+  will-change: transform;
+  -webkit-perspective: 400px;
+          perspective: 400px;
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.section {
+  will-change: transform;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #fff;
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.section--hidden {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+.section--active {
+  -webkit-transform: translateX(0) rotateY(0);
+          transform: translateX(0) rotateY(0);
+  z-index: 2;
+}
+.section__wrapper {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 8vw;
+  position: relative;
+}
+.section__title {
+  margin: 0 0 25px 0;
+  font-size: 48px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+.section__title:before {
+  content: '';
+  position: absolute;
+  top: 5rem;
+  left: 45%;
+  margin: auto;
+  width: 10%;
+  height: 2px;
+  background: #fff;
+}
+@media (max-width: 720px) {
+  .section__title {
+    font-size: 28px;
+  }
+  .section__title:before {
+    top: 3.25rem;
+  }
+}
+.section p {
+  margin: 0 0 25px 0;
+  font-family: 'Georgia';
+  font-size: 18px;
+  color: #fff;
+  opacity: 0.55;
+}
+@media (max-width: 720px) {
+  .section p {
+    font-size: 16px;
+  }
+}
+.section p:last-child {
+  margin-bottom: 0;
+}
+.color1 {
+  background: #d95f0e;
+}
+.color2 {
+  background: #8D8741;
+}
+.color3 {
+  background: #BC986A;
+}
+.color4 {
+  background: #DAAD86;
+}
+
+.options--active {
+  background-color: #8D8741;
+}
+
+.options--inactive {
+  background-color: #DAAD86;
+}
+
+
+#viewDiv {
+  width: 100%;
+  height: 100%;
+}
+
+
+#searchArea {
+  position: absolute;
+  top: 10em;
+  left: 1em;
+}
+
+#optionsDiv {
+  position: absolute;
+  top: 6em;
+  right: 1em;
+  width: 24em;
+  height: 16em;
   color: black;
+  background-color: white;
+  border: 1px solid #d95f0e;
 }
 
-.dropdown:hover {
-  cursor: pointer;
+#optionsMenu {
+  width: 100%;
 }
 
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  visibility: visible;
-  opacity: 1;
-  -prefixes-transition-delay: 0s, 0s;
+#optionsMenu ul {
+  display: flex;
+  width: 100%;
+  height: 5vh;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+#optionsMenu ul li {
+  flex: 1;
+  position: relative;
+}
 
-.button {
-  border: 2px solid black;
-  background: #4479BA;
-	color: #FFF;
-  padding: 14px 28px;
+#optionsMenu ul li:hover {
+  opacity: 0.85;
+}
+
+.optionsThumb {
+  display: block;
+  height: 5vh;
+}
+
+.optionsLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+}
+
+.options--hide {
+  display: none;
+}
+
+#optionsMenu ul li a p {
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  color: white;
+}
+
+#optionsContent {
+  background-color: white;
+  height: 80%;
+}
+
+#Search {
+  padding: 1em;
+  height: 100%;
+}
+
+#searchWidget > ul {
+  display: block;
+}
+
+#Legend {
+  display: none;
+  height: 100%;
+  padding-top: .5em;
+  padding-left: .1em;
+}
+
+
+
+.esri-legend {
+  background-color: white;
+}
+
+.esri-legend__service h3 {
   font-size: 16px;
-  cursor: pointer;
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  font-weight: normal;
 }
 
-.button:hover {
-  cursor: pointer;
-}
-
-.default {
-  color: #FFF;
-  font-weight: bold;
-  -webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	border: solid 1px #20538D;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.default:hover {
-  background: #356094;
-	border: solid 1px #2A4E77;
-	text-decoration: none;
-}
-
-.button:focus {
-  outline: 0;
-}
-
-.default:active {
-  -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
-	-moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
-	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
-	background: #2E5481;
-	border: solid 1px #203E5F;
+#customPopup {
+  color: black;
+  text-align: left;
+  font-size: 12px;
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  font-weight: normal;
 }
