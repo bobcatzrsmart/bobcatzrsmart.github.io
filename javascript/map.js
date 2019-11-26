@@ -305,7 +305,7 @@ async function getWaterWeatherData(waterID, weatherID) {
   console.log(myJSON_water);
 
   var weatherCode = weatherID;
-  var requestURL = 'http://api.openweathermap.org/data/2.5/weather?id=' + weatherCode + '&appid=1cdac353307447c60e378c1947253f7b';
+  var requestURL = 'https://api.openweathermap.org/data/2.5/weather?id=' + weatherCode + '&appid=1cdac353307447c60e378c1947253f7b';
   const response2 = await fetch(requestURL)
   const myJSON_weather = await response2.json();
 
