@@ -1,0 +1,323 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  line-height: 1.5;
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #fff;
+  background: #659DBD;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.nav {
+  height: 9vh;
+  will-change: transform;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background: #659DBD;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav--active {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.nav__list {
+  display: flex;
+  width: 50%;
+}
+.nav__list2 {
+  display: flex;
+  width: 100%;
+}
+
+.nav__item {
+  flex: 1;
+  position: relative;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav__item:hover {
+  opacity: 0.75;
+}
+.nav__thumb {
+  display: block;
+  height: 9vh;
+  background: #dc143c;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav__thumb:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 70px;
+  text-transform: uppercase;
+  opacity: 0;
+}
+.nav__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  margin: 0;
+}
+
+#navContainer {
+  display: flex;
+}
+
+#tagArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 9vh;
+  width: 50%;
+  margin: 0;
+}
+
+#tagContent {
+
+}
+
+@media (max-width: 850px) {
+  .nav__label {
+    font-size: 14px;
+  }
+}
+@media (max-width: 720px) {
+  .nav__label {
+    display: none;
+  }
+  .nav__thumb {
+    height: 60px;
+  }
+  .nav__thumb:before {
+    font-size: 24px;
+    opacity: 0.7;
+  }
+}
+.page {
+  height: 91vh;
+  will-change: transform;
+  -webkit-perspective: 400px;
+          perspective: 400px;
+  overflow: hidden;
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.section {
+  will-change: transform;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #fff;
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+  transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.section--hidden {
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+.section--active {
+  -webkit-transform: translateX(0) rotateY(0);
+          transform: translateX(0) rotateY(0);
+  z-index: 2;
+}
+.section__wrapper {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 8vw;
+  position: relative;
+}
+.section__title {
+  margin: 0 0 25px 0;
+  font-size: 48px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+.section__title:before {
+  content: '';
+  position: absolute;
+  top: 5rem;
+  left: 45%;
+  margin: auto;
+  width: 10%;
+  height: 2px;
+  background: #fff;
+}
+@media (max-width: 720px) {
+  .section__title {
+    font-size: 28px;
+  }
+  .section__title:before {
+    top: 3.25rem;
+  }
+}
+.section p {
+  margin: 0 0 25px 0;
+  font-family: 'Georgia';
+  font-size: 18px;
+  color: #fff;
+  opacity: 0.55;
+}
+@media (max-width: 720px) {
+  .section p {
+    font-size: 16px;
+  }
+}
+.section p:last-child {
+  margin-bottom: 0;
+}
+.color1 {
+  background: #d95f0e;
+}
+.color2 {
+  background: #8D8741;
+}
+.color3 {
+  background: #BC986A;
+}
+.color4 {
+  background: #DAAD86;
+}
+
+.options--active {
+  background-color: #8D8741;
+}
+
+.options--inactive {
+  background-color: #DAAD86;
+}
+
+
+#viewDiv {
+  width: 100%;
+  height: 100%;
+}
+
+
+#searchArea {
+  position: absolute;
+  top: 10em;
+  left: 1em;
+}
+
+#optionsDiv {
+  position: absolute;
+  top: 6em;
+  right: 1em;
+  width: 24em;
+  height: 16em;
+  color: black;
+  background-color: white;
+  border: 1px solid #d95f0e;
+}
+
+#optionsMenu {
+  width: 100%;
+}
+
+#optionsMenu ul {
+  display: flex;
+  width: 100%;
+  height: 5vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#optionsMenu ul li {
+  flex: 1;
+  position: relative;
+}
+
+#optionsMenu ul li:hover {
+  opacity: 0.85;
+}
+
+.optionsThumb {
+  display: block;
+  height: 5vh;
+}
+
+.optionsLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+}
+
+.options--hide {
+  display: none;
+}
+
+#optionsMenu ul li a p {
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  color: white;
+}
+
+#optionsContent {
+  background-color: white;
+  height: 80%;
+}
+
+#Search {
+  padding: 1em;
+  height: 100%;
+}
+
+#searchWidget > ul {
+  display: block;
+}
+
+#Legend {
+  display: none;
+  height: 100%;
+  padding-top: .5em;
+  padding-left: .1em;
+}
+
+
+
+.esri-legend {
+  background-color: white;
+}
+
+.esri-legend__service h3 {
+  font-size: 16px;
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  font-weight: normal;
+}
+
+#customPopup {
+  color: black;
+  text-align: left;
+  font-size: 12px;
+  font-family: "futura-pt", 'Century Gothic', 'Arial', sans-serif;
+  font-weight: normal;
+}
