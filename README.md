@@ -1,5 +1,1 @@
-# Project idea
-Collect San Marcos crime data for last several years (open records request). 
-Geocode crime data by address.
-Create map showing crime locations with ability to toggle between years and crime type.
-Create heatmap showing areas where crimes are concentrated.
+Texas contains 3,700 named streams, fifteen major rivers, and more than 3,300 miles of coastal shoreline; seventy-one sections of these Texas waterways have been designated as Texas Paddling Trails which represent portions of water which are well-mapped, accessible, and easy enough to accommodate all skill levels of recreational paddlers. We have created an online dashboard which integrates trail descriptions and maps, current water conditions, and current weather information in a one-stop shop for Texas recreational paddlers looking to plan their next adventure.
