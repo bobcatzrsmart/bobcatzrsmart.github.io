@@ -1,3 +1,7 @@
+/*
+  Array used to associate a paddling trail with its weather and water ID to
+  be used in the AJAX requests
+*/
 const citiesWeatherWaterID = {
   "Lady Bird Lake Paddling Trail": ["4726491", "08158000"],
   "Guadalupe River State Park Paddling Trail": ["4677392", "08167200"],
@@ -53,7 +57,7 @@ const citiesWeatherWaterID = {
   "Port O'Connor Paddling Trail": ["4720080", "08162501"]
 }
 
-
+// Mapping function for ArcGIS Javascript API with necessary required libraries
 require([
   "esri/Map",
   "esri/layers/FeatureLayer",
@@ -68,13 +72,15 @@ require([
   "esri/tasks/support/FeatureSet",
   "dojo/dom",
   "dojo/_base/array"
-], function(Map, FeatureLayer, MapView, Legend, Search, geometryEngine, Graphic, GraphicsLayer, Query, QueryTask, FeatureSet, dom, arrayUtils) {
-  // Create the map
+],
+
+function(Map, FeatureLayer, MapView, Legend, Search, geometryEngine, Graphic, GraphicsLayer, Query, QueryTask, FeatureSet, dom, arrayUtils) {
+  // Create the map and set basemap
   var map = new Map({
     basemap: "streets"
   });
 
-  // Create the MapView
+  // Create the MapView and assign the associated div ID
   var view = new MapView({
     container: "viewDiv",
     map: map,
@@ -82,11 +88,12 @@ require([
     center: [-97.941086, 29.884998]
   });
 
-  //view.ui.add(new Legend({ view: view }), "bottom-left");
+  // Create legend widget
   var legendWidget = new Legend({
     view: view,
   }, "legendWidget")
 
+  // Set default popup for paddling trails
   var paddlingTrailsPopupTemplate = {
     // autocasts as new PopupTemplate()
     title: "{TrailName}",
@@ -94,6 +101,7 @@ require([
     content: "<div id=\"customPopup\"><p style=\"color:#000000;font-size:12px;font-family:Avenir Next W00;\"><b><u>Trail Info: </u></b><br>TPWD Link: <a href=\"{TPWDLink}\" target=\"_blank\">Visit</a><br>Trail Length: {MaxLength} miles<br>Minimum Float Time: {TimeMin} hrs<br>Maximum Float Time: {TimeMax} hrs<br><br></div>"
   };
 
+  // Set paddling trails renderer
   var paddlingTrailsRenderer = {
     type: "simple",
     label: "Texas Paddling Trails",
@@ -104,6 +112,7 @@ require([
     }
   };
 
+  // Set access points renderer
   var accessPointsRenderer = {
     type: "simple",
     label: "Access Points",
@@ -115,13 +124,11 @@ require([
     }
   }
 
+  // Set access point default popup template
   var accessPointsPopupTemplate = {
     title: "Access Point - {Name}",
     content: [
       {
-        // It is also possible to set the fieldInfos outside of the content
-        // directly in the popupTemplate. If no fieldInfos is specifically set
-        // in the content, it defaults to whatever may be set within the popupTemplate.
         type: "fields",
         fieldInfos: [
           {
@@ -141,6 +148,7 @@ require([
     ]
   };
 
+  // Create paddling trails feature layer from REST service
   var paddlingTrails = new FeatureLayer({
     url: "https://services1.arcgis.com/Hug9pbs2TYetbCha/arcgis/rest/services/WebMappingFinalProject/FeatureServer/1",
     title: "Paddling Trails",
@@ -148,6 +156,7 @@ require([
     popupTemplate: paddlingTrailsPopupTemplate
   });
 
+  // Create access points feature layer from REST service
   var accessPoints = new FeatureLayer({
     url:
       "https://services1.arcgis.com/Hug9pbs2TYetbCha/arcgis/rest/services/WebMappingFinalProject/FeatureServer/0",
@@ -156,22 +165,27 @@ require([
     renderer: accessPointsRenderer,
   });
 
+  // Create popuptemplate for query results
   var popupTemplate = {
     title: "{TrailName}",
   };
 
+  // Create search widget
   searchQueryWidget = new Search({
     view: view,
     popupEnabled: false,
     container: "searchWidget"
   }, "searchWidget");
 
+  // Add layers to map
   map.add(paddlingTrails);
   map.add(accessPoints);
 
-
-
-
+  /*
+    Event which is watching for when features are selected by the popup. Used to
+    make the AJAX calls to the water and weather APIs based on whichever feature
+    is currently open in the popup.
+  */
   view.when(function () {
     view.popup.watch("selectedFeature", function(graphic) {
       // Make sure selected feature is from Paddling Trails feature layer
@@ -183,7 +197,11 @@ require([
 
         // AJAX call to retrieve water and weather data from APIs
         getWaterWeatherData(waterID, weatherID)
-        // Once promise is resolved, create HTML output from JSONs
+        /*
+          Once promise is resolved, call helper function to create HTML output
+          from JSONs. Popup content attribute is then updated with the formatted
+          weather and water data.
+        */
         .then(function(response) {
           currentWeather = response[1]['weather'][0]['main'];
           currentWeatherDescription = response[1]['weather'][0]['description'];
@@ -208,18 +226,20 @@ require([
     });
   });
 
-
+  /*
+    Search widget which is used in conjunction with a spatial query to obtain
+    trails within a predefined set of distances from a user-entered location
+  */
   searchQueryWidget.on("select-result", function(event) {
+    // remove buffer if it already is on the map i.e. for a new search
     if(typeof bufferGraphic != 'undefined') {
-      console.log("buffer graphic exists!");
       view.graphics.remove(bufferGraphic);
     }
-    console.log("event started");
+
+    // Create result geometry
     var resultGeometry = event.result.feature.geometry;
     resultsLayer = new GraphicsLayer();
-
     var bufferRadius = dom.byId("bufferRadius").value;
-    console.log("made it");
     var zoomLevel = 11;
 
     // Base custom zoom level on bufferRadius parameter
@@ -262,16 +282,24 @@ require([
     // Add the buffer to the view
     view.graphics.add(bufferGraphic);
 
+    // Create query task on REST endpoint
     var queryTask = new QueryTask({
       url: "https://services1.arcgis.com/Hug9pbs2TYetbCha/arcgis/rest/services/WebMappingFinalProject/FeatureServer/1"
     });
 
+    /*
+      Spatial query using the buffer graphic to select features from the
+      paddling trails that are contained within the buffer
+    */
     var query = paddlingTrails.createQuery();
     query.geometry = pointBuffer;
     query.spatialRelationship = "contains";
     query.returnGeometry = "true";
 
-
+    /*
+      Execute query and open popup with result set once query has executed
+      successfully
+    */
     queryTask.execute(query)
     .then(function(results) {
       var popResults = arrayUtils.map(results.features, function (feature) {
@@ -287,16 +315,17 @@ require([
         });
       }
     });
-
-
   });
-
-
 });
 
+/*
+  AJAX function where you pass in the water ID and weather ID assocaited with
+  a trail to create HTTP requests to the respective APIs. The request responses
+  are converted to JSON and then both JSONs are returned as an array.
+*/
 async function getWaterWeatherData(waterID, weatherID) {
   var waterCode = waterID;
-  var requestURL = 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=' + waterCode;
+  var requestURL = 'http://waterservices.usgs.gov/nwis/iv/?format=json&sites=' + waterCode;
   const response1 = await fetch(requestURL)
   const myJSON_water = await response1.json();
   console.log(myJSON_water);
@@ -310,28 +339,24 @@ async function getWaterWeatherData(waterID, weatherID) {
   return waterWeatherResultsArray;
 }
 
+
 /*
-async function getWeatherData(stationID) {
-  var cityID = stationID;
-  var requestURL = 'http://api.openweathermap.org/data/2.5/weather?id=' + cityID + '&appid=1cdac353307447c60e378c1947253f7b';
-  const response = await fetch(requestURL)
-  const myJSON = await response.json();
-  console.log("another async attempt");
-  console.log(myJSON);
-  return myJSON;
-}
+ Custom functions created to parse out the weather JSON
 */
 
+// Convert temp from Kelvin to Farenheit
 function k_to_f(kTemp) {
   fTemp = kTemp * (9/5) - 459.67;
   return Math.round(fTemp);
 }
 
+// Convert wind speed from meters per second to miles per hour
 function mps_to_mph(mps) {
   mph = mps * 2.237;
   return Math.round(mph);
 }
 
+// Returns the cardinal direction of the wind from compass degrees
 function find_wind_dir(deg) {
   if (deg > 348.75 || deg <= 11.25) {
     return 'N';
