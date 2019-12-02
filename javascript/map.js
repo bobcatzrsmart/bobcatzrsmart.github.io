@@ -78,8 +78,8 @@ require([
   var view = new MapView({
     container: "viewDiv",
     map: map,
-    zoom: 6,
-    center: [-99.062047, 31.405194]
+    zoom: 9,
+    center: [-97.941086, 29.884998]
   });
 
   //view.ui.add(new Legend({ view: view }), "bottom-left");
@@ -99,7 +99,7 @@ require([
     label: "Texas Paddling Trails",
     symbol: {
       type: "simple-line",
-      color: "darkblue",
+      color: [106, 90, 205],
       width: 2,
     }
   };
@@ -109,12 +109,9 @@ require([
     label: "Access Points",
     symbol: {
       type: "simple-marker",
-      color: "orange",
-      outline: {
-        style: "solid",
-        width: "1px",
-        color: "black"
-      }
+      size: 8,
+      color: '#8D8741',
+      outline: [105, 105, 105]
     }
   }
 
@@ -169,9 +166,9 @@ require([
     container: "searchWidget"
   }, "searchWidget");
 
-
-  map.add(accessPoints);
   map.add(paddlingTrails);
+  map.add(accessPoints);
+
 
 
 
