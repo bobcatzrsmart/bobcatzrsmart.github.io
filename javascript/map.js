@@ -325,7 +325,7 @@ function(Map, FeatureLayer, MapView, Legend, Search, geometryEngine, Graphic, Gr
 */
 async function getWaterWeatherData(waterID, weatherID) {
   var waterCode = waterID;
-  var requestURL = 'http://waterservices.usgs.gov/nwis/iv/?format=json&sites=' + waterCode;
+  var requestURL = 'https://waterservices.usgs.gov/nwis/iv/?format=json&sites=' + waterCode;
   const response1 = await fetch(requestURL)
   const myJSON_water = await response1.json();
   console.log(myJSON_water);
